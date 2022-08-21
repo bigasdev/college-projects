@@ -6,8 +6,15 @@
 #include <time.h>
 #define MAX 10
 
+//Global variables para ajudar com valores fixos
 #define Middle_X 53
 #define Middle_Y 10
+#define DefaultDelay 1000
+//Multiplier para definir as pontuacoes
+#define Multiplier 20
+
+int currentDelay;
+int currentMultiplier;
 
 void delay(unsigned int mseconds)
 {
@@ -45,10 +52,10 @@ void empilhar(Pilha *p, int x){
 
 void mostrar(No *no){
     if(no){
-   	gotoxy(10,10); printf("%d", no->valor);
-	delay(500);
+   	gotoxy(10,10); printf("Valor: %d", no->valor);
+	delay(currentDelay);
 	gotoxy(10,10); printf(" ");
-	delay(500);
+	delay(currentDelay);
 	mostrar(no->proximo);
 
     }
@@ -104,7 +111,50 @@ void leave(){
 
 //Core game loop
 void game(){
+    defaultScreen();
 
+    writeFocus("Iniciando o game");
+    //Loading bar
+    for (size_t i = 0; i < 8; i++)
+    {
+        delay(250);
+        printf(".");
+    }
+    defaultScreen();
+    //Core loop do game
+
+	int jogadas[MAX];
+	int x;
+    int op, valor, valor_genius;
+    No *no;
+	Pilha p;
+    p.topo = NULL;
+
+    //Gerando a sequencia da pilha que o computador ira gerar randomicamente e empilhando na memoria	
+			for (x=0; x< MAX; x++)
+			{
+				valor_genius = (rand() % 4);
+				empilhar(&p, valor_genius);
+				
+			}
+//mostrando a sequencia para o Jogador
+			 mostrar(p.topo);
+    defaultScreen();
+    //Jogador ira tentar repetir a sequencia do computador
+			for(x=0 ; x < MAX; x++)
+			{
+				gotoxy(0,0); printf("\nJogue: ");
+			    scanf("%d", &op);
+				jogadas[x] = op;
+				
+			}
+    defaultScreen();
+}
+
+//funcao criada para incializar alguns valores no inicio do jogo
+void initialize(){
+    currentDelay = DefaultDelay;
+    currentMultiplier = Multiplier;
 }
 
 //Funcao criada para o main menu
@@ -113,6 +163,8 @@ void mainMenu(){
     int choice;
     //Variavel para checar a opcao na tela de pontuacao
     int scoreChoice;
+    //Variavel para checar a dificuldade
+    int gameChoice;
 
     //Criacao do main menu
     gotoxy(50,Middle_Y);printf("Bem vindo ao Bigas-Genius!");
@@ -127,15 +179,31 @@ void mainMenu(){
     switch(choice){
         case 1:
             defaultScreen();
-            writeFocus("Iniciando o game");
-            //Loading bar
-            for (size_t i = 0; i < 8; i++)
-            {
-                delay(250);
-                printf(".");
+
+            //Grafico para as dificuldades
+            writeFocus("Selecione sua dificuldade:");
+            gotoxy(Middle_X, Middle_Y+1); printf("1 - Facil");
+            gotoxy(Middle_X, Middle_Y+2); printf("2 - Intermediario");
+            gotoxy(Middle_X, Middle_Y+3); printf("3 - Dificil\n");
+
+            scanf("%d", &gameChoice);
+
+            //switch loop para a dificuldade
+            //vai ser alterado apenas o delay e dificuldade aqui
+            switch(gameChoice){
+                case 1:
+                    currentDelay = 2000;
+                break;
+                case 2:
+                    currentDelay = 1500;
+                    currentMultiplier = 30;
+                break;
+                case 3:
+                    currentMultiplier = 40;
+                break;
             }
-            defaultScreen();
-            //Core loop do game
+
+            //inicia o jogo apos selecioanr a dificuldade
             game();
         break;
         case 2:
@@ -177,6 +245,8 @@ void mainMenu(){
 
 int main(){
 
+    //inicializacao das variaveis e main menu (com logo)
+    initialize();
     logo();
     mainMenu();
 
