@@ -90,7 +90,7 @@ void logo(){
     read("src/banner.txt", Middle_X-100, 25);
 }
 
-//Funcao criada para limpar a a desenha e desenhar o logo (default)
+//Funcao criada para limpar a tela e desenhar o logo (default)
 void defaultScreen(){
     clrscr();
     logo();
@@ -149,12 +149,6 @@ void game(){
 				
 			}
     defaultScreen();
-}
-
-//funcao criada para incializar alguns valores no inicio do jogo
-void initialize(){
-    currentDelay = DefaultDelay;
-    currentMultiplier = Multiplier;
 }
 
 //Funcao criada para o main menu
@@ -241,6 +235,12 @@ void mainMenu(){
             leave();
         break;
     }
+}
+
+//funcao criada para incializar alguns valores no inicio do jogo
+void initialize(){
+    currentDelay = DefaultDelay;
+    currentMultiplier = Multiplier;
 }
 
 int main(){
