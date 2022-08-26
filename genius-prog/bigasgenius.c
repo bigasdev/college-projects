@@ -9,12 +9,24 @@
 //Global variables para ajudar com valores fixos
 #define Middle_X 53
 #define Middle_Y 10
-#define DefaultDelay 1000
+#define DefaultDelay 500
 //Multiplier para definir as pontuacoes
 #define Multiplier 20
+#define MAX_ERROS 3
 
 int currentDelay;
 int currentMultiplier;
+int currentErrosMax;
+
+//Variaveis para lidar com o fim de rodada
+int currentRodada = 1;
+int values[50];
+//Variavel index para checar a pontuacao
+int valuesI;
+//Variavel para checar o numero de erros
+int erros;
+//Variavel para manter a pontuacao atual
+int score;
 
 void delay(unsigned int mseconds)
 {
@@ -40,26 +52,6 @@ typedef struct no{
 typedef struct{
     No *topo;
 }Pilha;
-
-
-// criando a operacao push
-void empilhar(Pilha *p, int x){
-    No *no = malloc(sizeof(No));
-    no->valor = x;
-    no->proximo = p->topo;
-    p->topo = no;
-}
-
-void mostrar(No *no){
-    if(no){
-   	gotoxy(10,10); printf("Valor: %d", no->valor);
-	delay(currentDelay);
-	gotoxy(10,10); printf(" ");
-	delay(currentDelay);
-	mostrar(no->proximo);
-
-    }
-}
 
 //Funcao criada para ler arquivos .txt (intuito de banner e/ou imagens)
 void read(char file[], int x, int y){
@@ -96,6 +88,49 @@ void defaultScreen(){
     logo();
 }
 
+// criando a operacao push
+void empilhar(Pilha *p, int x){
+    No *no = malloc(sizeof(No));
+    no->valor = x;
+    no->proximo = p->topo;
+    p->topo = no;
+}
+
+void mostrar(No *no){
+    if(no){
+   	gotoxy(Middle_X, Middle_Y); printf("Valor: %d", no->valor);
+	delay(currentDelay);
+	defaultScreen();
+	delay(currentDelay);
+	mostrar(no->proximo);
+
+    }
+}
+
+//Funcao para pontuar ou danificar o jogador
+void checkValues(int value, int jogada){
+    if(value == jogada){
+        int amount = 1 * currentMultiplier;
+        score += amount;
+        gotoxy(Middle_X + 2, Middle_Y+3); printf("GREAT!!! +%d", amount);
+    }else{
+        gotoxy(Middle_X + 2, Middle_Y+3); printf("-1 HEALTH");
+        erros++;
+    }
+}
+
+//Funcao para pegar os valores da pilha
+void getValues(No *no){
+    if(no){
+        gotoxy(Middle_X-2, Middle_Y); printf("Valor: %d Sua jogada: %d", no->valor, values[valuesI]);
+        checkValues(no->valor, values[valuesI]);
+        valuesI++;
+        delay(1500);
+        defaultScreen();
+        getValues(no->proximo);
+    }
+}
+
 //Funcao criada para escrever algo no meio da tela
 void writeFocus(char text[]){
     gotoxy(Middle_X, Middle_Y);printf(text);
@@ -109,11 +144,28 @@ void leave(){
     exit(0);
 }
 
+//Funcao para checar o fim de rodada
+void endRound(Pilha p){
+    getValues(p.topo);
+    currentRodada++;
+}
+
+//Funcao para escrever no score ou criar um caso nao exista
+void write(char name[]){
+    FILE *f = fopen("score.txt", "w");
+    if (f == NULL)
+    {
+        printf("Error opening file!\n");
+    }
+    fprintf(f, "%s - %d", name, score);
+    fclose(f);
+}
+
 //Core game loop
 void game(){
     defaultScreen();
 
-    writeFocus("Iniciando o game");
+    gotoxy(Middle_X-3, Middle_Y);printf("Iniciando a rodada: %d", currentRodada);
     //Loading bar
     for (size_t i = 0; i < 8; i++)
     {
@@ -123,32 +175,45 @@ void game(){
     defaultScreen();
     //Core loop do game
 
-	int jogadas[MAX];
 	int x;
     int op, valor, valor_genius;
     No *no;
 	Pilha p;
     p.topo = NULL;
+    valuesI = 0;
+    
 
     //Gerando a sequencia da pilha que o computador ira gerar randomicamente e empilhando na memoria	
-			for (x=0; x< MAX; x++)
-			{
-				valor_genius = (rand() % 4);
-				empilhar(&p, valor_genius);
+	for (x=0; x< currentRodada; x++)
+	{
+		valor_genius = (rand() % 8);
+	    empilhar(&p, valor_genius);
 				
-			}
-//mostrando a sequencia para o Jogador
-			 mostrar(p.topo);
+	}
+    //mostrando a sequencia para o Jogador
+	mostrar(p.topo);
     defaultScreen();
     //Jogador ira tentar repetir a sequencia do computador
-			for(x=0 ; x < MAX; x++)
-			{
-				gotoxy(0,0); printf("\nJogue: ");
-			    scanf("%d", &op);
-				jogadas[x] = op;
+    for(x=0 ; x < currentRodada; x++)
+	{
+		gotoxy(Middle_X,Middle_Y); printf("Jogada %d: ", x);
+		scanf("%d", &op);
+		values[x] = op;
 				
-			}
+	}
     defaultScreen();
+    endRound(p);
+    if(erros >= currentErrosMax){
+        char name[10];
+
+        gotoxy(Middle_X-4,Middle_Y); printf("Fim de jogo!! Pontos: %d", score);
+        gotoxy(Middle_X-9,Middle_Y+2); printf("Insira seu nick para salvar o score: ");
+        scanf("%s", &name);
+        write(name);
+        leave();
+    }else{
+        game();
+    }
 }
 
 //Funcao criada para o main menu
@@ -175,7 +240,7 @@ void mainMenu(){
             defaultScreen();
 
             //Grafico para as dificuldades
-            writeFocus("Selecione sua dificuldade:");
+            gotoxy(Middle_X-4, Middle_Y); printf("Selecione sua dificuldade:");
             gotoxy(Middle_X, Middle_Y+1); printf("1 - Facil");
             gotoxy(Middle_X, Middle_Y+2); printf("2 - Intermediario");
             gotoxy(Middle_X, Middle_Y+3); printf("3 - Dificil\n");
@@ -186,13 +251,15 @@ void mainMenu(){
             //vai ser alterado apenas o delay e dificuldade aqui
             switch(gameChoice){
                 case 1:
-                    currentDelay = 2000;
+                    currentErrosMax = 4;
+                    currentDelay = 1500;
                 break;
                 case 2:
-                    currentDelay = 1500;
+                    currentDelay = 1000;
                     currentMultiplier = 30;
                 break;
                 case 3:
+                    currentErrosMax = 2;
                     currentMultiplier = 40;
                 break;
             }
@@ -210,7 +277,7 @@ void mainMenu(){
             }
             defaultScreen();
             //Leitura dos scores salvo no .txt
-            read("scores/score.txt", Middle_X, Middle_Y);
+            read("score.txt", Middle_X, Middle_Y);
 
             gotoxy(Middle_X, 28); printf("1 - Voltar");
             gotoxy(Middle_X, 29); printf("2 - Sair");
@@ -241,6 +308,7 @@ void mainMenu(){
 void initialize(){
     currentDelay = DefaultDelay;
     currentMultiplier = Multiplier;
+    currentErrosMax = MAX_ERROS;
 }
 
 int main(){
