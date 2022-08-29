@@ -117,6 +117,337 @@ function diaUtil(x){
    console.log(`O dia ${x} é = ${dia}`);
 }
 
+function fruitCheck(fruta){
+    exercicioName("14");
+    switch(fruta){
+        case "Maca":
+            console.log("Nao vendemos essa fruta aqui");
+            break;
+        case "Kiwi":
+            console.log("Estamos com escassez de kiwis");
+            break;
+        case "Melancia":
+            console.log("Aqui esta, sao 3 reais o quilo");
+            break;
+        default:
+            console.error("Erro vc nao digitou nenhuma fruta")
+            break;
+    }
+}
+
+function hatchCar(carro){
+    exercicioName("15");
+    switch(carro){
+        case "hatch":
+           console.log("Compra efetuada com sucesso!");
+           break;
+        case "sedan":
+           console.log("Tem certeza que nao prefere este modelo?");
+           break;
+        case "motocicleta":
+           console.log("Tem certeza que nao prefere este modelo?");
+           break;
+        case "caminhonete":
+           console.log("Tem certeza que nao prefere este modelo?");
+           break;
+        default:
+            console.error("Nao trabalhamos com este tipo de automovel aqui");
+            break;
+    }
+}
+
+function calculadora(x,conta,y){
+    exercicioName("16");
+    switch(conta){
+        case "+":
+           console.log(`Escolheu soma... Resultado = ${x+y}`);
+           break;
+        case "-":
+           console.log(`Escolheu subtracao... Resultado = ${x-y}`);
+           break;
+        case "*":
+           console.log(`Escolheu multiplicacao... Resultado = ${x*y}`);
+           break;
+        case "/":
+           console.log(`Escolheu divisao... Resultado = ${x/y}`);
+           break;
+        default:
+            console.error("Operacao invalida");
+            break;
+    }
+}
+
+function aumentoFuncionario(plano, salario){
+    exercicioName("17");
+    switch(plano){
+        case "A":
+           console.log(`Funcionario vai receber um aumento de 10%, o salario foi de ${salario} para ${salario+(salario*.1)}`)
+           break;
+        case "B":
+           console.log(`Funcionario vai receber um aumento de 15%, o salario foi de ${salario} para ${salario+(salario*.15)}`)
+           break;
+        case "C":
+           console.log(`Funcionario vai receber um aumento de 20%, o salario foi de ${salario} para ${salario+(salario*.2)}`)
+           break;
+        default:
+            console.error("Plano invalido");
+            break;
+    }
+}
+function numeroExtenso(numero){
+    exercicioName("18");
+    switch(numero){
+        case 0:
+           console.log("Zero");
+           break;
+        case 1:
+            console.log("Um");
+           break;
+        case 2:
+            console.log("Dois");
+           break;
+        case 3:
+            console.log("Tres");
+           break;
+        case 4:
+            console.log("Quatro");
+           break;
+        case 5:
+            console.log("Cinco");
+           break;
+        case 6:
+            console.log("Seis");
+           break;
+        case 7:
+            console.log("Sete");
+           break;
+        case 8:
+            console.log("Oito");
+           break;
+        case 9:
+            console.log("Nove");
+           break;
+        case 10:
+            console.log("Dez");
+           break;
+        default:
+            console.error("Numero fora do intervalo");
+            break;
+    }
+}
+
+function cardapio(codigo, quantia){
+    exercicioName(19);
+    switch(codigo){
+        case 100:
+           console.log(`Produto escolhido: cachorro quente, vai ficar: ${quantia*3}`);
+           break;
+        case 200:
+            console.log(`Produto escolhido: hamburguer, vai ficar: ${quantia*4}`);
+           break;
+        case 300:
+            console.log(`Produto escolhido: cheeseburguer, vai ficar: ${quantia*5.50}`);
+           break;
+        case 400:
+            console.log(`Produto escolhido: Bauru, vai ficar: ${quantia*7.50}`);
+           break;
+        case 500:
+            console.log(`Produto escolhido: refrigerante, vai ficar: ${quantia*3.50}`);
+           break;
+        case 600:
+            console.log(`Produto escolhido: suco, vai ficar: ${quantia*2.80}`);
+           break;
+        default:
+            console.error("Produto nao existe");
+            break;
+    }
+}
+
+function entregarCedulas(valor){
+    exercicioName("20");
+}
+
+function planoSaude(idade){
+    exercicioName("21");
+    var valorPadrao = 100;
+}
+
+function anuidade(){
+    exercicioName("22");
+}
+
+function media(){
+    exercicioName("23");
+}
+
+function helloWorld(){
+    exercicioName("24");
+    var i = 0;
+    while(i < 12){
+        console.log("Hello World!");
+        i++;
+    }
+}
+
+function numeros50(){
+    exercicioName("25");
+    for (let i = 0; i < 51; i++) {
+        console.log(`Numero: ${i}`);
+    }
+}
+
+function encontrarPares(){
+    exercicioName("26");
+    for (let i = 0; i < 101; i++) {
+        if(i % 2 === 0)console.log(`O numero ${i} é par`);
+    }
+}
+
+function calcularAltura(altura, taxa){
+    exercicioName("27");
+}
+
+function vetorInteiros(numeros){
+    exercicioName("28");
+    var pares = [];
+    var impares = [];
+    numeros.forEach(n =>{
+        if(n % 2 === 0){
+            pares.push(n);
+        }else{
+            impares.push(n);
+        }
+    })
+    console.log(`Temos ${pares.length} pares (${pares}) e ${impares.length} impares (${impares})`);
+}
+
+function vetorNoLimite(vetor){
+    exercicioName("29");
+    var intervalo = [10,11,12,13,14,15,16,17,18,19,20];
+    var dentroDoIntervalo = [];
+    var foraDoIntervalo = [];
+    vetor.forEach(v => {
+        intervalo.forEach(i =>{
+            if(v == i){
+                dentroDoIntervalo.push(v);
+                return;
+            }
+        })
+    })
+    console.log(`Numeros dentro do intervalo ${dentroDoIntervalo} e numeros fora do intervalo ${foraDoIntervalo}`);
+}
+
+function menorMaiorVetor(vetor){
+    exercicioName("30");
+    var menor = vetor[0];
+    var maior = vetor[0];
+    vetor.forEach(v =>{
+        if(v < menor)menor = v;
+        if(v > maior)maior = v;
+    })
+    console.log(`Maior numero dentro do vetor: ${maior} menor: ${menor}`);
+}
+
+function vetorNegativo(vetor){
+    exercicioName("31");
+    var negativos = [];
+    vetor.forEach(v =>{
+        if(v < 0){
+            negativos.push(v);
+        }
+    })
+    console.log(`Quantia de numeros negativos no vetor: ${negativos.length} vetor = ${negativos}`);
+}
+
+function mediaAritmetica(vetor){
+    exercicioName("32");
+    var conta = 0;
+    vetor.forEach(v=>{
+        conta += v;
+    })
+    var div = conta/vetor.length;
+    console.log(`Media aritmetica: ${div}`);
+}
+
+function tresVetores(vetorInteiro, vetorString, vetorDouble){
+    exercicioName("33");
+}
+
+function stringsCompare(x,y){
+    exercicioName("34");
+    var newString = "";
+    var newX = x.toLowerCase();
+    var newY = y.toLowerCase();
+    if(x.length < y.length){
+        console.error("As strings tem tamanhos diferentes, nao sera possivel comparar");
+        return false;
+    }
+    for (let i = 0; i < x.length; i++) {
+        if(newX[i] === newY[i])newString += x[i];
+    }
+    if(newString === x){
+        console.log("As strings estao iguais");
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function adicionarPilha(vetorPilha, vetorAdiciona){
+   exercicioName("35");
+   var v = vetorPilha;
+   vetorAdiciona.forEach(vetor=>{
+        v.push(vetor);
+   })
+   console.log(`O vetor agora e: ${v}`);
+}
+
+function vetorCalculo(vetor, numero){
+    exercicioName("36");
+    var newVetor = [];
+    vetor.forEach(v=>{
+        newVetor.push(v*numero);
+    })
+    console.log(`Vetor multiplicado = ${newVetor}`);
+    return newVetor;
+}
+function vetorCalculo5(vetor, numero){
+    exercicioName("36.5");
+    var newVetor = [];
+    vetor.forEach(v=>{
+        if(v > 5){
+            newVetor.push(v*numero);
+        }
+    })
+    console.log(`Vetor multiplicado (apenas os maiores de 5) = ${newVetor}`);
+    return newVetor;
+}
+
+function progressaoAritmetica(n, a1, r){
+   exercicioName("37");
+   
+}
+
+function progressaoGeometrica(n, a1, r){
+   exercicioName("37.5");
+   
+}
+
+function inicioFim(inicio, fim){
+   exercicioName("38");
+   
+}
+
+function trocarVetores(vetorA, vetorB){
+   exercicioName("39");
+   
+}
+
+function vetorNotas(){
+   exercicioName("40");
+   
+}
+
 //Exercicio 1
 numberHandle(2,2); 
 //Exercicio 2
@@ -144,3 +475,61 @@ anoBissexto();
 fatorial(6);
 //Exercicio 13
 diaUtil(15);
+//Exercicio 14
+fruitCheck("Kiwi");
+//Exercicio 15
+hatchCar("hatch");
+//Exercicio 16
+calculadora(15, "*", 2);
+//Exercicio 17
+aumentoFuncionario("B", 1500);
+//Exercicio 18
+numeroExtenso(5);
+//Exercicio 19
+cardapio(600, 4);
+//Exercicio 20
+entregarCedulas(122);
+//Exercicio 21
+planoSaude(17);
+//Exercicio 22
+anuidade();
+//Exercicio 23
+media();
+//Exercicio 24
+helloWorld();
+//Exercicio 25
+numeros50();
+//Exercicio 26
+encontrarPares();
+//Exercicio 27
+calcularAltura([1.25, 1.35], [3, 5]);
+//Exercicio 28
+vetorInteiros([1,2,3,4,8,9,12]);
+//Exercicio 29
+vetorNoLimite([1,5,9,11,15,17,21]);
+//Exercicio 30
+menorMaiorVetor([1,4,5,15,25,35]);
+//Exercicio 31
+vetorNegativo([-2,-5,-10,1,2,5,-25]);
+//Exercicio 32
+mediaAritmetica([8,7,6,7]);
+//Exercicio 33
+tresVetores([1,3,5,8], ["Sim", "Nao", "Talvez", "Otimo"], [.5, 1.25, 3.7, 15.5]);
+//Exercicio 34
+stringsCompare("TEst", "Test")
+//Exercicio 35
+adicionarPilha([1,2,3,4,5], [6,7,8,9,10]);
+//Exercicio 36
+vetorCalculo([1,2,4,5,10], 3);
+//Exercicio 36.5
+vetorCalculo5([1,2,6,8,12], 4);
+//Exercicio 37
+progressaoAritmetica();
+//Exercicio 37.5
+progressaoGeometrica();
+//Exercicio 38
+inicioFim(15, 250);
+//Exercicio 39
+trocarVetores([1,2,3], [4,7,9]);
+//Exercicio 40
+vetorNotas([1.5, 2.7, 3.5, 5.6]);

@@ -23,5 +23,15 @@
 			"   $0",
 			"}"
 		]
+	},
+	"Criar switch case":{
+		"prefix": "cas",
+		"body": [
+			"case $1:",
+			"   $2",
+			"   break;",
+			"$0"
+		]
 	}
+	
 }
