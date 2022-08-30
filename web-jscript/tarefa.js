@@ -14,8 +14,14 @@ function numberHandle(value1, value2){
 
 function returnTriangle(triangle){
     exercicioName(2);
-    var tCount = 0;
-    var oldTriangle;
+    if(triangle[0] === triangle[1] && triangle[1] === triangle[2]){
+        console.log(`Triangulo ${triangle} = EQUILATERO`);
+    }
+    if(triangle[0] === triangle[1] || triangle[0] === triangle[2] || triangle[1] === triangle[2]){
+        console.log(`Triangulo ${triangle} = ISOSCELES`);
+    }else{
+        console.log(`Triangulo ${triangle} = ESCALENO`);
+    }
 }
 
 function baseElevada(value1,value2){
@@ -60,14 +66,49 @@ function bhaskara(ax2,bx,c){
     console.log(r);
 }
 
-function basquete(){
-   exercicioName("8");
-   
+function basquete(pontuacao){
+   exercicioName("8"); 
+   var melhor = 0;
+   var quantia = -1;
+   var pior = pontuacao[0];
+   var piorJogo;
+   for (let i = 0; i < pontuacao.length; i++) {
+        if(pontuacao[i] > melhor){
+            quantia++;
+            melhor = pontuacao[i];
+        }
+        if(pontuacao[i] < pior){
+            pior = pontuacao[i];
+            piorJogo = i;
+        }
+   }
+   var v = [quantia, piorJogo];
+   console.log(`Pedro bateu seu recorde ${quantia} vezes e teve sua pior pontuacao no jogo: ${piorJogo+1}`);
+   return v;
 }
 
-function sistemaNotas(){
+function sistemaNotas(notas){
    exercicioName("9");
-   
+   notas.forEach(n=>{
+        if(n > 40){
+            console.log(`Aluno foi aprovado direto com a nota: ${n}`);
+            return;
+        }
+        if(n < 38){
+            console.log(`Aluno foi reprovado direto com a nota: ${n}`);
+            return;
+        }else if(n % 5 >= 3){
+            n = n + (5-(n%5));
+        }else{
+            n = n - (n%5);
+        }
+
+        if(n < 40){
+            console.log(`Aluno foi reprovado apos arredondamento com a nota: ${n}`);
+        }else{
+            console.log(`Aluno foi aprovado apos arredondamento com a nota: ${n}`);
+        }
+   })
 }
 
 function divisivelPor(x){
@@ -76,9 +117,22 @@ function divisivelPor(x){
    console.log(`O Numero ${x} é divisivel = ${div}`);
 }
 
-function anoBissexto(){
+function anoBissexto(ano){
    exercicioName("11");
-   
+   var anoBissexto = false;
+   if(ano <= 0){
+        console.log(`O ano ${ano} e invalido.`);
+        return false;
+   }
+   if(ano % 400 === 0){
+        anoBissexto = true;
+   }else if(ano % 100 === 0){
+        anoBissexto = false;
+   }else if(ano % 4 === 0){
+        anoBissexto = true;
+   }
+   console.log(`O ano ${ano} e bissexto = ${anoBissexto}`);
+   return anoBissexto;
 }
 
 function fatorial(x){
@@ -270,10 +324,24 @@ function entregarCedulas(valor){
 function planoSaude(idade){
     exercicioName("21");
     var valorPadrao = 100;
+    var valor;
+    if(idade < 10){
+        valor = 80;
+    }else if(idade >= 10 && idade < 30){
+        valor = 50;
+    }else if(idade >= 30 && idade < 60){
+        valor = 95;
+    }else{
+        valor = 130;
+    }
+    console.log(`O valor do plano para a idade ${idade} fica: ${valor} reais adicionais + ${valorPadrao} reais padrao do plano. Totalizando: ${valor+valorPadrao} reais.`);
 }
 
-function anuidade(){
+function anuidade(valor, mes){
     exercicioName("22");
+    var montante = valor*Math.pow((1 + .05), mes - 1);
+    console.log(`O valor a ser pago vai ser de ${montante}`)
+    return montante;
 }
 
 function media(){
@@ -326,13 +394,12 @@ function vetorNoLimite(vetor){
     var intervalo = [10,11,12,13,14,15,16,17,18,19,20];
     var dentroDoIntervalo = [];
     var foraDoIntervalo = [];
-    vetor.forEach(v => {
-        intervalo.forEach(i =>{
-            if(v == i){
-                dentroDoIntervalo.push(v);
-                return;
-            }
-        })
+    vetor.forEach(v=>{
+        if(v >= 10 && v <= 20){
+            dentroDoIntervalo.push(v);
+        }else{
+            foraDoIntervalo.push(v);
+        }
     })
     console.log(`Numeros dentro do intervalo ${dentroDoIntervalo} e numeros fora do intervalo ${foraDoIntervalo}`);
 }
@@ -371,6 +438,12 @@ function mediaAritmetica(vetor){
 
 function tresVetores(vetorInteiro, vetorString, vetorDouble){
     exercicioName("33");
+    var x = [];
+    var y = [];
+    x = x.concat(vetorInteiro, vetorDouble);
+    y = y.concat(vetorInteiro, vetorString);
+    console.table(x);
+    console.table(y);
 }
 
 function stringsCompare(x,y){
@@ -435,7 +508,18 @@ function progressaoGeometrica(n, a1, r){
 
 function inicioFim(inicio, fim){
    exercicioName("38");
-   
+   if(inicio > fim){
+        var f = inicio;
+        inicio = fim;
+        fim = f;
+   }
+   var impar = [];
+   for (let i = inicio; i <= fim; i++) {
+        if(i % 2 != 0)impar.push(i);
+   }
+   console.log(`Foram encontrados ${impar.length} numeros impares:`)
+   console.table(impar);
+   return impar;
 }
 
 function trocarVetores(vetorA, vetorB){
@@ -451,7 +535,7 @@ function vetorNotas(){
 //Exercicio 1
 numberHandle(2,2); 
 //Exercicio 2
-returnTriangle([1,0,1]);
+returnTriangle([0,3,1]);
 //Exercicio 3
 baseElevada(3,3);
 //Exercicio 4
@@ -464,13 +548,13 @@ juroComposto(300, 1, 12);
 //Exercicio 7
 bhaskara(3,-5,12);
 //Exercicio 8
-basquete();
+basquete([10,25,35,8,6,14,1,38]);
 //Exercicio 9
-sistemaNotas();
+sistemaNotas([38, 34, 41, 39]);
 //Exercicio 10
 divisivelPor(9);
 //Exercicio 11
-anoBissexto();
+anoBissexto(2024);
 //Exercicio 12
 fatorial(6);
 //Exercicio 13
@@ -492,7 +576,7 @@ entregarCedulas(122);
 //Exercicio 21
 planoSaude(17);
 //Exercicio 22
-anuidade();
+anuidade(150, 3);
 //Exercicio 23
 media();
 //Exercicio 24
@@ -528,7 +612,7 @@ progressaoAritmetica();
 //Exercicio 37.5
 progressaoGeometrica();
 //Exercicio 38
-inicioFim(15, 250);
+inicioFim(265, 250);
 //Exercicio 39
 trocarVetores([1,2,3], [4,7,9]);
 //Exercicio 40
