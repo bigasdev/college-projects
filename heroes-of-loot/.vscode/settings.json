@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "structs.h": "c",
+        "sdl.h": "c",
+        "sdl_image.h": "c",
+        "test.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "Enabled"
+}
