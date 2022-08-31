@@ -1,3 +1,6 @@
+//RA 0040962013027
+//GUSTAVO CASSIO DOMINGUES
+
 const exercicioName = (number) => {
     console.log("");
     console.log(`Exercicio ${number}`);
@@ -319,6 +322,11 @@ function cardapio(codigo, quantia){
 
 function entregarCedulas(valor){
     exercicioName("20");
+    var nota100;
+    var nota50;
+    var nota100;
+    var nota5;
+    var nota1;
 }
 
 function planoSaude(idade){
@@ -344,8 +352,27 @@ function anuidade(valor, mes){
     return montante;
 }
 
-function media(){
+function media(cod, nota1, nota2, nota3){
     exercicioName("23");
+    var maior;
+    var notaMedia;
+    var notaMenor;
+    var media;
+    if (nota1 >= nota2 && nota1 >= nota3) {
+        maior = nota1;
+        notaMedia = nota2;
+        notaMenor = nota3;
+    } else if (nota2 >= nota1 && nota2 >= nota3) {
+        maior = nota2;
+        notaMedia = nota1;
+        notaMenor = nota3;
+    } else {
+        maior = nota3;
+        notaMedia = nota1;
+        notaMenor = nota2;
+    }
+    media = ((maior*4)+(notaMedia*3)+(notaMenor*3))/10;
+    console.log(`Aluno ${cod} Nota1: ${nota1} Nota2: ${nota2} Nota3: ${nota3} Media: ${media} Resultado: ${media >= 5 ? "Aprovado" : "Reprovado"}`);
 }
 
 function helloWorld(){
@@ -498,12 +525,28 @@ function vetorCalculo5(vetor, numero){
 
 function progressaoAritmetica(n, a1, r){
    exercicioName("37");
-   
+   var x = [];
+   var somaX = 0;
+   for (let i = 0; i < n; i++) {
+        a1 = a1 + r;
+        somaX += a1;
+        x.push(a1);
+   }
+   console.log(`Progressao Aritmetica: ${x} Soma dos termos: ${somaX}`);
+   return x;
 }
 
 function progressaoGeometrica(n, a1, r){
    exercicioName("37.5");
-   
+   var x = [];
+   var somaX = 0;
+   for (let i = 0; i < n; i++) {
+        a1 = a1 * r;
+        somaX += a1;
+        x.push(a1);
+   }
+   console.log(`Progressao Geometrica: ${x} Soma dos termos: ${somaX}`);
+   return x;
 }
 
 function inicioFim(inicio, fim){
@@ -524,12 +567,36 @@ function inicioFim(inicio, fim){
 
 function trocarVetores(vetorA, vetorB){
    exercicioName("39");
-   
+   if(vetorA.length !== vetorB.length){
+        console.log("Vetores com tamanhos diferentes!");
+        return;
+   }
+   var x = vetorA.length;
+   for (let i = 0; i < x; i++) {
+        vetorB.push(vetorA[i]);
+        vetorA.push(vetorB[i]);
+   }
+   for (let i = 0; i < x; i++) {
+        vetorA.shift();
+        vetorB.shift();
+    }
+    console.table(vetorA);
+    console.table(vetorB);
 }
 
-function vetorNotas(){
+function vetorNotas(notas){
    exercicioName("40");
-   
+   notas.forEach(n => {
+        if(n < 5){
+            console.log(`Nota ${n} recebeu conceito D!`);
+        }else if(n < 7){
+            console.log(`Nota ${n} recebeu conceito C!`);
+        }else if(n < 9){
+            console.log(`Nota ${n} recebeu conceito B!`);
+        }else{
+            console.log(`Nota ${n} recebeu conceito A!`);
+        }
+   })
 }
 
 //Exercicio 1
@@ -578,7 +645,7 @@ planoSaude(17);
 //Exercicio 22
 anuidade(150, 3);
 //Exercicio 23
-media();
+media(2013027, 8, 6, 9);
 //Exercicio 24
 helloWorld();
 //Exercicio 25
@@ -608,12 +675,12 @@ vetorCalculo([1,2,4,5,10], 3);
 //Exercicio 36.5
 vetorCalculo5([1,2,6,8,12], 4);
 //Exercicio 37
-progressaoAritmetica();
+progressaoAritmetica(5, 2, 3);
 //Exercicio 37.5
-progressaoGeometrica();
+progressaoGeometrica(5, 2, 3);
 //Exercicio 38
 inicioFim(265, 250);
 //Exercicio 39
 trocarVetores([1,2,3], [4,7,9]);
 //Exercicio 40
-vetorNotas([1.5, 2.7, 3.5, 5.6]);
+vetorNotas([1.5, 9.7, 8.5, 5.6]);
