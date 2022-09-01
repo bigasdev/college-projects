@@ -5,24 +5,19 @@
 #include "src/draw.h"
 #include "src/input.h"
 #include "src/structs.h"
+#include "src/hero.h"
 #include <stdio.h>
 #include <string.h>
 #include "test.h"
 
 extern struct App app;
 
-Entity player;
+Entity hero;
 
 void cleanup(){
 
 }
 
-void initPlayer(){
-    player.x = 600;
-    player.y = 300;
-    player.health = 10;
-    player.texture = loadTexture("resources/sprites/player.png");
-}
 
 int main(int argc, char *argv[]){
     Test();
@@ -30,11 +25,11 @@ int main(int argc, char *argv[]){
     SDL_Delay(1600);
 
 	memset(&app, 0, sizeof(app));
-    memset(&player, 0, sizeof(Entity));
+    memset(&hero, 0, sizeof(Entity));
 
 	initSDL();
 
-    initPlayer();
+    //createHero(&hero);
 
 	atexit(cleanup);
 
@@ -45,7 +40,9 @@ int main(int argc, char *argv[]){
 
 		doInput();
 
-        blit(player.texture, player.x, player.y);
+		playerInputs();
+
+        blit(hero.texture, hero.x, hero.y);
 
 		presentScene();
 

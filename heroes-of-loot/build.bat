@@ -1,1 +1,1 @@
-gcc main.c test.c input.c init.c draw.c SDL2.dll SDL2_image.dll -o heroes
+gcc main.c test.c input.c init.c draw.c hero.c SDL2.dll SDL2_image.dll -o heroes
