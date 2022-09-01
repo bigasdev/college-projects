@@ -1,13 +1,16 @@
+#ifndef STRUCT_H
+#define STRUCT_H
+
 #include "include/SDL2/SDL.h"
 
-struct App{
+typedef struct{
     SDL_Renderer *renderer;
     SDL_Window *window;
     int up;
     int down;
     int left;
     int right;
-};
+} App;
 
 typedef struct {
     int x;
@@ -17,3 +20,7 @@ typedef struct {
     char name;
     SDL_Texture *texture;
 } Entity;
+
+extern App app;
+
+#endif

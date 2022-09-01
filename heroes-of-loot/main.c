@@ -10,10 +10,6 @@
 #include <string.h>
 #include "test.h"
 
-extern struct App app;
-
-Entity hero;
-
 void cleanup(){
 
 }
@@ -24,14 +20,14 @@ int main(int argc, char *argv[]){
 
     SDL_Delay(1600);
 
-	memset(&app, 0, sizeof(app));
-    memset(&hero, 0, sizeof(Entity));
+	memset(&app, 0, sizeof(App));
+    memset(&Hero, 0, sizeof(Entity));
 
 	initSDL();
 
-    //createHero(&hero);
-
 	atexit(cleanup);
+
+	createHero();
 
 	while (1)
 	{
@@ -42,7 +38,7 @@ int main(int argc, char *argv[]){
 
 		playerInputs();
 
-        blit(hero.texture, hero.x, hero.y);
+        blit(Hero.texture, Hero.x, Hero.y);
 
 		presentScene();
 

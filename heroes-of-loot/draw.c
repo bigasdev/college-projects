@@ -4,7 +4,6 @@
 #include "src/draw.h"
 #include <stdio.h>
 
-extern struct App app;
 
 void prepareScene(void)
 {

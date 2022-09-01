@@ -2,8 +2,6 @@
 #include "src/input.h"
 #include "src/structs.h"
 
-extern struct App app;
-
 
 void doKeyDown(SDL_KeyboardEvent *event)
 {

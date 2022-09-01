@@ -5,7 +5,7 @@
 #include "src/init.h"
 #include <stdio.h>
 
-struct App app;
+App app;
 
 void initSDL(void){
     int rendererFlags, windowFlags;
