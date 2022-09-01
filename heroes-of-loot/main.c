@@ -38,6 +38,7 @@ int main(int argc, char *argv[]){
 
 		playerInputs();
 
+		animatePlayer();
         blit(Hero.texture, Hero.x, Hero.y);
 
 		presentScene();

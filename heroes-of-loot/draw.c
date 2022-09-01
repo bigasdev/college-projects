@@ -16,6 +16,12 @@ void presentScene(void)
 	SDL_RenderPresent(app.renderer);
 }
 
+void resetScene(void){
+	SDL_SetRenderDrawColor(app.renderer, 96, 128, 255, 255);
+	SDL_RenderClear(app.renderer);
+	SDL_RenderPresent(app.renderer);
+}
+
 SDL_Texture *loadTexture(char *file){
 	SDL_Texture *texture;
 

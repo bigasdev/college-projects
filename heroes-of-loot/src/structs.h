@@ -17,8 +17,10 @@ typedef struct {
     int y;
     int moveSpeed;
     int health;
+    int framesCount;
     char name;
     SDL_Texture *texture;
+    SDL_Texture *frames[4];
 } Entity;
 
 extern App app;
