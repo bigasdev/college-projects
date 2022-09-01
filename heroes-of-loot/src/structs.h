@@ -2,6 +2,7 @@
 #define STRUCT_H
 
 #include "include/SDL2/SDL.h"
+#include <stdbool.h>
 
 typedef struct{
     SDL_Renderer *renderer;
@@ -19,6 +20,7 @@ typedef struct {
     int health;
     int framesCount;
     char name;
+    bool slowed;
     SDL_Texture *texture;
     SDL_Texture *frames[4];
 } Entity;

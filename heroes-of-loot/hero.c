@@ -11,7 +11,7 @@ int idleAnim = 0;
 void createHero(void){
     Hero.x = 600;
     Hero.y = 300;
-    Hero.moveSpeed = 4;
+    Hero.moveSpeed = 2;
     Hero.framesCount = 2;
     Hero.health = 10;
     Hero.texture = loadTexture("resources/sprites/player.png");
@@ -23,25 +23,30 @@ void createHero(void){
 void animatePlayer(){
     Uint32 ticks = SDL_GetTicks();
     Uint32 sprite = (ticks / 300) % 2;
-    printf("%" PRIu32 "\n", sprite);
     Hero.texture = Hero.frames[sprite];
 }
 
 void playerInputs(){
+    if(Hero.slowed){
+        Hero.moveSpeed = 2;
+    }else{
+        Hero.moveSpeed = 3;
+    }
     if(app.up){
-        printf("Going up!");
         Hero.y -= Hero.moveSpeed;
     }
     if(app.down){
-        printf("Going down!");
         Hero.y += Hero.moveSpeed;
     }
     if(app.right){
-        printf("Going right!");
         Hero.x += Hero.moveSpeed;
     }
     if(app.left){
-        printf("Going left!");
         Hero.x -= Hero.moveSpeed;
+    }
+    if(app.up && app.right || app.up && app.left || app.down && app.right || app.down && app.left){
+        Hero.slowed = true;
+    }else{
+        Hero.slowed = false;
     }
 }
